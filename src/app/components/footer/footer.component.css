@@ -1,0 +1,37 @@
+footer {
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.footer-nav {
+    flex-direction: row;
+    justify-content: center;
+}
+
+.footer-nav a {
+    padding: 10px 15px;
+    color: black;
+}
+
+.nav-item {
+    display: contents;
+}
+
+.nav-item::after {
+    content: "|";
+    color: gray;
+}
+
+.nav-item:nth-child(4)::after {
+    content: "";
+}
+
+@media (max-width: 500px){
+    .nav-item::after {
+        content: "";
+    }
+
+    .footer-nav {
+        flex-direction: column;
+    }
+}

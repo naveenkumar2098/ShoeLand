@@ -1,0 +1,21 @@
+button {
+    background-color: #106eea;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.search-wrap {
+    margin: 0 auto;
+    font-family: 'Poppins', sans-serif;
+}
+
+h2 {
+    font-size: 35px;
+    font-weight: 600;
+}
+
+@media (max-width: 700px) {
+    button {
+        display: none;
+    }
+}

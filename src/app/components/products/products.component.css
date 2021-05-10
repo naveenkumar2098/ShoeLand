@@ -1,0 +1,40 @@
+.alert-success {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 0;
+    z-index: 3000;
+}
+
+.row {
+    font-family: 'Poppins', sans-serif;
+}
+
+.card {
+    flex: auto;
+    padding: 20px;
+}
+
+.card img {
+    width: 100%;
+}
+
+.add-to-cart button {
+    background-color: #106eead2;
+    cursor: pointer;
+    border-color: #106eead2;
+}
+
+.product-gist {
+    padding: 20px;
+    cursor: pointer;
+}
+
+.checked {
+    color: orange;
+}
+
+small {
+    font-size: 12px;
+}

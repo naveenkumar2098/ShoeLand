@@ -1,0 +1,76 @@
+<div class="row mt-3 help">
+    <div class="col-lg-4 contacts pt-4 mt-5">
+        <p><strong>Reach us here</strong></p>
+        <div class="mb-5">
+            <div class="address mb-4">
+                <h4>ShoeLand</h4>
+                G-45  Rohtak Road<br>110041<br>
+                <small>DELHI</small>
+            </div>
+            <div class="contacts-lines">
+                <div class="mb-1"><img src="assets/images/phone.svg" alt="Phone number">+91-1234567892</div>
+                <div><img src="assets/images/email.svg" alt="Email address"><a href="kumarn.na20@gmail.com">contact@shoeland.com</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="alert alert-success mt-5 mb-5" role="alert" *ngIf="success">
+            <strong>Message sent 📤</strong>&nbsp; We'll try to reply in the next few days.
+        </div>
+        <div class="col-lg-12 contacts-box mt-5 mb-5" *ngIf="!success">
+            <h2>Drop us a line</h2>
+            <p>We'd love to hear from you 🎤</p>
+            <hr>
+            <form [formGroup]="formContacts" (ngSubmit)="sendMessage()">
+                <div class="form-row mt-4">
+                    <div class="form-group col-md-6">
+                        <label for="firstName">First name <span>*</span></label>
+                        <input type="text" class="form-control" id="firstName" placeholder="Linus" formControlName="firstName" required>
+                        <div *ngIf="firstName.touched">
+                            <small class="form-text" [hidden]="!firstName.errors?.required"><span>First name is required.</span></small>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="lastName">Last name <span>*</span></label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Torvalds" formControlName="lastName" required>
+                        <div *ngIf="lastName.touched">
+                            <small class="form-text" [hidden]="!lastName.errors?.required"><span>Last name is required.</span></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="email">Email <span>*</span></label>
+                        <input type="email" class="form-control" id="email" placeholder="linus.torvalds@example.com" formControlName="email" required>
+                        <div *ngIf="email.touched">
+                            <small class="form-text" [hidden]="!email.errors?.required"><span>E-mail address is required.</span></small>
+                            <small class="form-text" [hidden]="!email.errors?.email"><span>Please enter a valid e-mail address</span></small>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="phone">Phone number</label>
+                        <input type="text" class="form-control" id="phone" placeholder="456789123" formControlName="phone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject <span>*</span></label>
+                    <input type="text" class="form-control" id="subject" placeholder="Subject" formControlName="subject" required>
+                    <div *ngIf="subject.touched">
+                        <small class="form-text" [hidden]="!subject.errors?.required"><span>Subject is required.</span></small>
+                    </div>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="message">Message <span>*</span></label>
+                    <textarea name="subject" id="subject" formControlName="message" placeholder="Type your message here" rows="4" cols="40"></textarea>
+                    <div *ngIf="message.touched">
+                        <small class="form-text" [hidden]="!message.errors?.required"><span>Message is required.</span></small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <small class="form-text text-muted mb-3"><span>*</span> Mandatory fields.</small>
+                </div>
+                <button type="submit" [disabled]="!formContacts.valid" class="btn btn-lg btn-block col-lg-6 offset-lg-6">Send</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+<app-search (searchFilter)="searchProducts($event)" [search]="search"></app-search>
+<div class="row">
+    <div class="col">
+        <app-products [products]="products" [searching]="searching" (stock)="refreshStock($event)"></app-products>
+    </div>
+</div>

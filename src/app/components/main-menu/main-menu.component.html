@@ -1,0 +1,29 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+                <a class="navbar-brand" routerLink="">ShoeLand<span>.</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse align-items-center justify-content-end" id="navbarToggler">
+                    <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link active" routerLink="">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" routerLink="about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" routerLink="store">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" routerLink="help">Help</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary px-4" routerLink="cart" *ngIf="!router.url.includes('cart')"><i class="fas fa-shopping-cart"></i> Cart <span class="badge bg-danger">{{ cart.length }}</span></a>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+    </nav>
+</header>

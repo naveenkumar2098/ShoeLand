@@ -1,0 +1,41 @@
+<!-- product added to cart -->
+<button *ngIf="addedToCart" type="button" class="alert alert-success">Product added to your shopping cart 👍🏼</button>
+<!-- if products are not loaded -->
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-danger" role="alert" *ngIf="products.length === 0">
+            No products found! 🤷🏻‍♀️
+        </div>
+    </div>
+</div>
+<!-- showing all products -->
+<div class="row">
+    <div class="row text-center">
+        <h2>Product Listing</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora magnam similique aliquid nostrum repellendus amet in ab doloremque cum modi!</p>
+    </div>
+    <ng-container *ngFor="let product of products">
+        <div class="card col-lg-3 col-md-4 col-sm-6 col-xs-12 d-flex justify-content-between my-3 mx-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img class="product-image" src="{{ product.images[0] }}" alt="{{ product.name }}">
+                    <div class="add-to-cart" *ngIf="product.stock > 0">
+                        <button type="button" class="btn btn-warning text-white" (click)="addToCart(product.id)"><small>Add to Cart</small></button>
+                    </div>
+                    <div class="add-to-cart" href="#" *ngIf="product.stock <= 0">
+                        <button type="button" class="btn btn-light text-white" disabled><small>Add to Cart</small></button>
+                    </div>
+                </div>
+                <div class="col-md-8 product-gist" [routerLink]="['/product', product.id]">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <div>&#8377;&nbsp;{{ product.price }}</div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

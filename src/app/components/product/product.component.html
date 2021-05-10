@@ -1,0 +1,86 @@
+<div class="row mt-4 mb-3 detail">
+    <div *ngIf="addedToCart" class="alert alert-success mb-4 col-12 col-lg-10 offset-lg-1">
+        <strong>Very nice!</strong> {{ product.name }} added to the cart 🛒
+    </div>
+    <div class="col-lg-6 offset-lg-1 mb-5">
+        <img src="{{ product.images[selectedImg] }}" alt="Image of the product" class="mb-4">
+        <div class="row">
+            <ng-container *ngFor="let image of product.images; index as i">
+                <div class="col-3 mb-4">
+                    <a role="button" (click)="changeSelectedImg(i)"><img src="{{ image }}" alt="Image of the product"></a>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="col-lg-4 mb-5">
+        <div class="mb-4">
+            <h5>{{ product.name }}</h5>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            &nbsp;&nbsp; <span>{{ product.reviews.length }} reviews</span>
+            <h5 *ngIf="product.price > 0"> &#8377;&nbsp;{{ product.price }}</h5>
+            <div *ngIf="product.stock <= 3" class="alert alert-danger mt-4">{{ product.stock }}</div>
+        </div>
+        <div class="mb-2">{{ product.description }}</div>
+        <div class="mb-2">
+            <select class="form-select" name="Size" id="size">
+                <option *ngFor="let item of product.sizes; let i = index" [value]="i">{{ item }}</option>
+            </select>
+        </div>
+        <ng-container *ngIf="product.stock > 0">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-3 col-lg-12 col-xl-4">
+                        <select class="custom-select" id="quantity" name="quantity" [(ngModel)]="quantity">
+                            <ng-container *ngFor="let placeholder of stock; index as i">
+                                <option value="{{ i + 1 }}">{{ i + 1 }}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-9 col-lg-12 col-xl-8 mt-2">
+                        <button type="button" class="btn btn-warning btn-block text-white" (click)="addToCart()">Add to cart</button>
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+        <ng-container *ngIf="product.stock <= 0">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-3 col-lg-12 col-xl-4">
+                        <select class="custom-select" disabled>
+                            <option value="0">0</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-9 col-lg-12 col-xl-8 mt-2">
+                        <button type="button" class="btn btn-warning btn-block text-white" disabled>Add to cart</button>
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+    </div>
+    <div class="reviews">
+        <h3>Reviews</h3>
+        <div class="my-4" *ngFor="let i of product.reviews">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 d-flex">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLe5PABjXc17cjIMOibECLM7ppDwMmiDg6Dw&usqp=CAU" alt="User Image" class="rounded-circle">
+                    <div class="ms-3 align-items-center">
+                        <div class="username">{{ i.username }}</div>
+                        <p>{{ i.date }}</p>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-6">
+                    <p class="review-text">{{ i.comment }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
