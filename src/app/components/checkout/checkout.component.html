@@ -1,14 +1,36 @@
-<div class="d-flex jsutify-content-around checkout-menu">
-    <div class="shopping">1. Shopping Cart</div>
-    <div class="shipping">2. Shipping Details</div>
-    <div class="payment">3. Payment Options</div>
+<div *ngIf="cartItems.length > 0" class="row checkout-menu mt-3 mb-5">
+    <div class="col-md-4 shopping-tab active text-center">1. Shopping Cart</div>
+    <div class="col-md-4 shipping-tab text-center">2. Shipping Details</div>
+    <div class="col-md-4 payment-tab text-center">3. Payment Options</div>
 </div>
 
-<h2 class="text-center mt-3" *ngIf="">Your Cart is Empty!!</h2>
+<h2 class="text-center mt-3" *ngIf="cartItems.length < 1">Your Cart is Empty!!</h2>
 
 <div class="row">
-    <div *ngFor="let item of cartItems, let i = index">
-        <div>{{ item.productId }}</div>
-        <div>{{ item.quantity }}</div>
-    </div>
+    <form [formGroup]="orderForm">
+        <div class="row" *ngIf="step == 1 && cartItems.length > 0">
+            <div class="col-md-8 shopping">
+                <h3>Shopping Cart</h3>
+                <hr>
+                <div class="d-flex jsutify-content-between mt-2" *ngFor="let item of shoppingCart, let i = index">
+                    <div class="d-flex">
+                        <img src="{{ item.product.images[0] }}" alt="{{ item.product.name }} image">
+                        <div class="ms-2">
+                            <div class="text-uppercase">{{ item.product.name }}</div>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, possimus</p>
+                            <p>&#8377;&nbsp;{{ calculatePrice(item.product.id) }}</p>
+                            <!-- <p class="item-total">{{calculatePrice(item.product.id)}}</p> -->
+                        </div>
+                        <div class="item-quantity">
+                            <input type="number" class="form-control" name="quantity" id="quantity" value="{{ item.quantity }}" min="1" max="{{ item.product.stock }}" (change)="updateQuantity(item.quantity, item.product.id)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 summary">
+                <h3>Summary</h3>
+                <hr>
+            </div>
+        </div>
+    </form>
 </div>

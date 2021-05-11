@@ -1,0 +1,27 @@
+.checkout-menu, h2, .row {
+    font-family: 'Poppins', sans-serif;
+}
+
+.checkout-menu {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.checkout-menu div {
+    border-bottom: 3px solid gray;
+}
+
+.active {
+    color: #106eea;
+    border-bottom: 3px solid #106eea;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+}
+
+.shopping, .summary {
+    flex: auto;
+}
+
