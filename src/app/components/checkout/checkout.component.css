@@ -25,3 +25,11 @@ img {
     flex: auto;
 }
 
+.shipping {
+    overflow-x: hidden;
+}
+
+.payment .row {
+    border: 2px solid gray;
+}
+

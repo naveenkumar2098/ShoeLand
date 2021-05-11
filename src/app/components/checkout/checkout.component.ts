@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Cart } from 'src/app/interfaces/cart';
 import { Payment } from 'src/app/interfaces/payment';
@@ -28,7 +28,7 @@ export class CheckoutComponent implements OnInit {
   shippingPrice: number = 0;
   coupon: string = 'BOOTCAMP2021';
   
-  constructor(private cartService: CartService, private productsService: ProductsService, private formBuilder: FormBuilder, private shippingService: ShippingService, private paymentService: PaymentsService) { 
+  constructor(private cartService: CartService, private productsService: ProductsService, private formBuilder: FormBuilder, private shippingService: ShippingService, private paymentService: PaymentsService, private ele: ElementRef) { 
     this.cartService.items.subscribe(data => {
       console.log(data);
       this.cartItems = data;
@@ -59,7 +59,19 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+  shoppingTab = this.ele.nativeElement.querySelector('.shopping-tab');
+  shippingTab = this.ele.nativeElement.querySelector('.shipping-tab');
+  paymentTab = this.ele.nativeElement.querySelector('.payment-tab');
+
   ngOnInit(): void {
+  }
+
+  submit(){
+    this.step += 1;
+  }
+
+  previous() {
+    this.step -= 1;
   }
 
   updateQuantity(quantity: number, productId: number) {

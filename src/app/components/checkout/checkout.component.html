@@ -7,7 +7,7 @@
 <h2 class="text-center mt-3" *ngIf="cartItems.length < 1">Your Cart is Empty!!</h2>
 
 <div class="row">
-    <form [formGroup]="orderForm">
+    <form [formGroup]="orderForm" (ngSubmit)=submit()>
         <div class="row" *ngIf="step == 1 && cartItems.length > 0">
             <div class="col-md-8 shopping">
                 <h3>Shopping Cart</h3>
@@ -30,7 +30,172 @@
             <div class="col-md-4 summary">
                 <h3>Summary</h3>
                 <hr>
+                <input type="text" formControlName="couponCode" placeholder="Enter Coupon Code" id="code">
+                <div class="mt-2">
+                    <div class="d-flex justify-content-between">
+                       <p>SubTotal</p>
+                       <p>{{ calculateTotal() }}</p> 
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p>Shipping</p>
+                        <p class="text-uppercase">Free</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p>Taxes</p>
+                        <p>&#8377;&nbsp;0</p>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <p>Total</p>
+                        <p>&#8377;&nbsp;{{ calculateTotal() }}</p>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="row" *ngIf="step == 2">
+            <div class="col-md-8 shipping">
+                <h3>Shipping Details</h3>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <input type="text" formControlName="firstName" required placeholder="First Name">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" formControlName="lastName" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <input type="text" formControlName="address" required placeholder="Address">
+                </div>
+                <div class="row mb-3">
+                    <input type="text" formControlName="addressOpt" placeholder="Address 2">
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <select formControlName="country" id="country" required>
+                            <option value="India" selected>India</option>
+                            <option value="USA">USA</option>
+                            <option value="UK">UK</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" formControlName="city" placeholder="City" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <input type="text" formControlName="pinCode" required placeholder="Zip/Postal Code">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" formControlName="phone" placeholder="Phone Number" required>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mt-3 mb-3">
+                    <div class="col-md-6" *ngFor="let shipItem of shippingMethods, let i = index">
+                        <label>
+                            <input type="radio" formControlName="shippingMethod" value="{{shipItem.id}}">
+                            <span>{{ shipItem.name }}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 summary">
+                <h3>Summary</h3>
+                <hr>
+                <div class="d-flex jsutify-content-between mt-2" *ngFor="let item of shoppingCart, let i = index">
+                    <div class="d-flex">
+                        <img src="{{ item.product.images[0] }}" alt="{{ item.product.name }} image">
+                        <div class="ms-2">
+                            <div class="text-uppercase">{{ item.product.name }}</div>
+                            <p>&#8377;&nbsp;{{ calculatePrice(item.product.id) }}</p>
+                            <!-- <p class="item-total">{{calculatePrice(item.product.id)}}</p> -->
+                        </div>
+                    </div>
+                </div>
+                <input class="mt-3 mb-3" type="text" formControlName="couponCode" placeholder="Enter Coupon Code" id="code">
+                <div class="mt-2">
+                    <div class="d-flex justify-content-between">
+                       <p>SubTotal</p>
+                       <p>{{ calculateTotal() }}</p> 
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p>Shipping</p>
+                        <p class="text-uppercase">Free</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p>Taxes</p>
+                        <p>&#8377;&nbsp;0</p>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <p>Total</p>
+                        <p>&#8377;&nbsp;{{ calculateTotal() }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="step == 3">
+            <div class="col-md-8 payment">
+                <h3>Payment Method</h3>
+                <hr>
+                <div class="row mt-3 mb-3">
+                    <input class="col-md-2 align-items-center" type="radio" formControlName="paymentMethod" id="paymentMethod" value="1">
+                    <div class="col-md-10">
+                        <span>Credit Card</span>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, quo</p>
+                    </div>
+                    <input class="mb-3 col-md-6" type="text" name="cardNumber" id="cardNumber" placeholder="0000 0000 0000 0000">
+                    <input class="mb-3 col-md-3" type="text" name="expiry" id="expiry" placeholder="MM/YY">
+                    <input class="mb-3 col-md-3" type="text" name="cvv" id="cvv" placeholder="CVV">
+                    <input type="text" class="mb-2" name="holder name" id="holder name" placeholder="Card Holder's Name">
+                </div>
+                <hr>
+                <div class="row mt-3 mb-3">
+                    <input class="col-md-2 align-items-center" type="radio" formControlName="paymentMethod" id="paymentMethod" value="2">
+                    <div class="col-md-10">
+                        <span>Paypal</span>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, quo</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 summary">
+                <h3>Summary</h3>
+                <hr>
+                <div class="d-flex jsutify-content-between mt-2" *ngFor="let item of shoppingCart, let i = index">
+                    <div class="d-flex">
+                        <img src="{{ item.product.images[0] }}" alt="{{ item.product.name }} image">
+                        <div class="ms-2">
+                            <div class="text-uppercase">{{ item.product.name }}</div>
+                            <p>&#8377;&nbsp;{{ calculatePrice(item.product.id) }}</p>
+                        </div>
+                    </div>
+                </div>
+                <input class="mt-3 mb-3" type="text" formControlName="couponCode" placeholder="Enter Coupon Code" id="code">
+                <div class="mt-2">
+                    <div class="d-flex justify-content-between">
+                       <p>SubTotal</p>
+                       <p>{{ calculateTotal() }}</p> 
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p>Shipping</p>
+                        <p class="text-uppercase">Free</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p>Taxes</p>
+                        <p>&#8377;&nbsp;0</p>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <p>Total</p>
+                        <p>&#8377;&nbsp;{{ calculateTotal() }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="btn btn-primary mx-2" *ngIf="step!=1" (click)="previous()">Previous</a>
+        <button type="submit" class="btn btn-primary mx-2" *ngIf="step!=3 && cartItems.length >0">Next</button>
+        <button type="submit" class="btn btn-primary mx-2" *ngIf="step==3">Submit</button>
+        <button routerLink="" class="btn btn-dark" *ngIf="cartItems.length >0">Cancel</button>
     </form>
 </div>
