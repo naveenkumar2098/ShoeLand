@@ -8,7 +8,7 @@ import { Payment } from '../interfaces/payment';
 })
 export class PaymentsService {
 
-  url: string = 'http://localhost:3000/paymentsMethods'
+  url: string = 'http://localhost:3000/paymentMethods'
   
   constructor(private http: HttpClient) { }
 

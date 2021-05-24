@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Cart } from '../interfaces/cart';
 import { Product } from '../interfaces/product';
 import { ProductsService } from './products.service';
@@ -59,5 +59,10 @@ export class CartService {
       this.product.stock -= quantity;
       this.productsService.editProductStock(this.product).subscribe(data => this.product = data); 
     });
+  }
+
+  emptyShoppingCart(cart: Cart[]) {
+    this.cartItems = cart;
+    this.items.next(this.cartItems);
   }
 }
